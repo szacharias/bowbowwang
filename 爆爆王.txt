@@ -1,0 +1,35 @@
+多人遊戲 Y
+控制
+切格
+物件
+出升格數
+爆炸範圍
+爆炸畫面
+按一下動一格
+FPS
+炸彈=物件不能動
+道具(炸彈範圍)
+物件生出道具
+不能超出畫面
+同時出現在同一格
+人物可以穿越人物
+個別人的passable 另外一個人不可以穿越
+連放炸彈 OK
+顯示火
+
+炸彈物件 :passable / location / distance / owner / 倒數時間
+障礙物建 :passable / location 
+道具物件 :picked / location 
+人物物件 :passable / owner / distance / location 
+
+function 
+-炸彈爆炸(判斷附近物件 決定function)
+-道具(被檢 效果)
+-道具生成
+-人物死亡死亡判定
+-產生炸彈(倒數)
+-人物移動
+-物件爆炸(觸發道具生成)
+-顯示火
+-人物生成
+-障礙生成
