@@ -16,6 +16,7 @@ FPS
 個別人的passable 另外一個人不可以穿越
 連放炸彈 OK
 顯示火
+可以把物件存在list裡面以方便顯示
 
 炸彈物件 :passable / location / distance / owner / 倒數時間
 障礙物建 :passable / location 
