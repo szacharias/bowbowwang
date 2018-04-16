@@ -19,8 +19,6 @@ gameRect = gameImage.get_rect()
 
 # 設置遊戲視窗
 windowSurface = pygame.display.set_mode((gameRect.width,gameRect.height))
-background=pygame.Surface((800,600))
-background.fill([176,196,22])
 pygame.init()
 #  退出
 def terminate():
@@ -74,19 +72,22 @@ class piece:
         self.life = life_TF
 
 
-
+p1=piece( 0 , 0 , 'A' , True)
+p2=piece( 720 , 540 , 'B' , True)
 #產生腳色
-def init_players():
+def players_picture_set():
     #player1
-    p1=piece( 0 , 0 , 'A' , True)
+    background=pygame.Surface((800,600))
+    background.fill([176,196,22])
     playerImage1 = pygame.image.load("man1.png")
     playerImage1 = pygame.transform.scale(playerImage1, (70, 50))
     background.blit(playerImage1,(p1.x,p1.y))
     #player2
-    p2=piece( 720 , 540 , 'B' , True)
+    
     playerImage2 = pygame.image.load("man2.png")
     playerImage2 = pygame.transform.scale(playerImage2, (70, 50))
     background.blit(playerImage2,(p2.x,p2.y))
+    windowSurface.blit(background,(0,0))
     pygame.display.update
 """
 class obstacles:
@@ -127,14 +128,14 @@ class obstacles:
 """
 
 
-
+players_picture_set()
 finish = False;
 # 遊戲主程式
 while finish == False:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w: #player 1 up down left right
-                x_change = -5
+                p1.x=p1.x+5
                 print('w')
             if event.key == pygame.K_a:
                 x_change = 5
@@ -157,9 +158,10 @@ while finish == False:
                 x_change = 5
             if event.key == pygame.K_m:#player 2 drop bomb
                 x_change = 5
-    windowSurface.blit(background,(0,0))
+        pygame.event.pump()
+    
     initBoard()
-    init_players()
+    players_picture_set()
     pygame.display.update
             #這邊我不知道怎麼做
             
