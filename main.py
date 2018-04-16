@@ -148,6 +148,7 @@ while finish == False:
                 print('d')
             if event.key == pygame.K_p:#end game
                 finish = True
+                print("end game")
                 break
             if event.key == pygame.K_i: #player 2 up down left right
                 p2.y = p2.y - 60
@@ -161,9 +162,9 @@ while finish == False:
             if event.key == pygame.K_l:
                 p2.x = p2.x + 80
                 print('l')
-            if event.key == pygame.K_q:#player 1 drop bomb
+            #if event.key == pygame.K_q:#player 1 drop bomb
 
-            if event.key == pygame.K_m:#player 2 drop bomb
+            #if event.key == pygame.K_m:#player 2 drop bomb
 
         pygame.event.pump()
 
