@@ -1,5 +1,5 @@
 import pygame, sys, random
-from pygame.locals import *
+#from pygame.locals import *
 import numpy as np
 import time as ti
 # 變數宣告
@@ -12,7 +12,16 @@ FPS = 40
 VHNUMS = 10 #格數
 CELLNUMS = VHNUMS*VHNUMS#總格數
 
+gameImage = pygame.image.load('apple.jpg')
+gameImage = pygame.transform.scale(gameImage, (800, 600))
+gameRect = gameImage.get_rect()
 
+
+# 設置遊戲視窗
+windowSurface = pygame.display.set_mode((gameRect.width,gameRect.height))
+background=pygame.Surface((800,600))
+background.fill([176,196,22])
+pygame.init()
 #  退出
 def terminate():
     pygame.quit()
@@ -25,13 +34,7 @@ def initBoard():
 
 
     # 加載圖片
-    gameImage = pygame.image.load('apple.jpg')
-    gameImage = pygame.transform.scale(gameImage, (800, 600))
-    gameRect = gameImage.get_rect()
-
-
-    # 設置遊戲視窗
-    windowSurface = pygame.display.set_mode((gameRect.width, gameRect.height))
+    
     pygame.display.set_caption('炸彈超人')
 
     #每隔寬度
@@ -46,7 +49,7 @@ def initBoard():
         pygame.draw.line(windowSurface, BLACK, (0, i*cellHeight), (gameRect.width, i*cellHeight))
 
 
-    windowSurface.fill(BLUE)
+    #windowSurface.fill(BLUE)
 
     for i in range(VHNUMS+1):
         pygame.draw.line(windowSurface, BLACK, (i*cellWidth, 0), (i*cellWidth, gameRect.height))
@@ -71,17 +74,25 @@ class piece:
         self.life = life_TF
 
 
+
 #產生腳色
 def init_players():
     #player1
-    piece( a , 0 , 0 , A , True)
-
+    p1=piece( 0 , 0 , 'A' , True)
+    playerImage1 = pygame.image.load("man1.png")
+    playerImage1 = pygame.transform.scale(playerImage1, (70, 50))
+    background.blit(playerImage1,(p1.x,p1.y))
     #player2
-    piece(b , 720 , 520 , B , True)
-
-class obstacles
+    p2=piece( 720 , 540 , 'B' , True)
+    playerImage2 = pygame.image.load("man2.png")
+    playerImage2 = pygame.transform.scale(playerImage2, (70, 50))
+    background.blit(playerImage2,(p2.x,p2.y))
+    pygame.display.update
+"""
+class obstacles:
     passable = False
-    locationx = -1
+    local
+    tionx = -1
     locationy = -1
     AOE = -1
     owner = -1
@@ -112,40 +123,47 @@ class obstacles
         self.locationx = locationx
         self.locationy = locationy
 
-def bombAOE(owner , locationx , locationy , AOE):
+    "def bombAOE(owner , locationx , locationy , AOE):"
+"""
 
 
 
-finish = False
+finish = False;
 # 遊戲主程式
 while finish == False:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w: #player 1 up down left right
-                #x_change = -5
+                x_change = -5
+                print('w')
             if event.key == pygame.K_a:
-                #x_change = 5
+                x_change = 5
+                print('a')
             if event.key == pygame.K_s:
-                #x_change = 5
+                x_change = 5
+                print('s')
             if event.key == pygame.K_d:
-                #x_change = 5
+                x_change = 5
+                print('d')
             if event.key == pygame.K_i: #player 2 up down left right
-                #x_change = -5
+                x_change = -5
             if event.key == pygame.K_j:
-                #x_change = 5
+                x_change = 5
             if event.key == pygame.K_k:
-                #x_change = 5
+                x_change = 5
             if event.key == pygame.K_l:
-                #x_change = 5
+                x_change = 5
             if event.key == pygame.K_x:#player 1 drop bomb
-                #x_change = 5
+                x_change = 5
             if event.key == pygame.K_m:#player 2 drop bomb
-                #x_change = 5
+                x_change = 5
+    windowSurface.blit(background,(0,0))
+    initBoard()
+    init_players()
+    pygame.display.update
             #這邊我不知道怎麼做
-        '''if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                x_change = 0
-'''
-    mainClock.tick(FPS)
+            
+"""
+mainClock.tick(FPS)
 
-    ti.sleep(2)
+ti.sleep(2)"""
