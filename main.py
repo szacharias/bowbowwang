@@ -13,7 +13,7 @@ AOEA =3
 AOEB = 3
 VHNUMS = 10 #格數
 CELLNUMS = VHNUMS*VHNUMS #總格數
-
+bombCount = 0
 finish = False;
 
 gameImage = pygame.image.load('apple.jpg')
@@ -125,25 +125,27 @@ class obstacles:
 
     def initBomb( locationxO , locationyO , AOEO , ownerO  ):
         print("initbomb")
+        bombCount ++
         locationx = locationxO
         locationy = locationyO
         bombsPictureSet(locationx ,locationy )
         AOE = AOEO
         owner = ownerO
+        """
         bombTimer = time.time()
         #bombTimer = pygame.time.get_ticks()
         waiting = True
         while waiting:
             curTime = time.time()
             seconds= curTime - bombTimer
-            print(seconds) 
+            print(seconds)
             if seconds >5 :
                 duelOutcome = bombAOE(self.owner , self.locationx , self.locationy , self.AOE)
                 if duelOutcome == 1 or duelOutcome == 2 or duelOutcome == 3:
                     finish = True
                 elif duelOutcome == 4 :
                     finish = False
-                waiting = False
+                waiting = False"""
 
 
     def bombAOE(owner, locationx , locationy ):
@@ -189,7 +191,6 @@ class obstacles:
             p2Status = True
         if locationy + (60 * AOE ) >= p2.y and locationy <= p2.y and locationx == p2.x: # bottom hit
             p2Status = True
-
         return p1Status , p2Status
 
 
@@ -197,10 +198,12 @@ players_picture_set()
 # 遊戲主程式
 while finish == False:
     obsta = obstacles()
+
     for event in pygame.event.get():
+        if bombCount > 1
+
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w: #player 1 up down left right
-                p1.y=p1.y-60
+            if event.key == pygame.K_w: #player 1 up down left right                    p1.y=p1.y-60
                 print('w')
             if event.key == pygame.K_a:
                 p1.x = p1.x -80
@@ -227,12 +230,10 @@ while finish == False:
             if event.key == pygame.K_l:
                 p2.x = p2.x + 80
                 print('l')
-#<<<<<<< HEAD
             if event.key == pygame.K_q:#player 1 drop bomb
                 obstacles.initBomb(p1.x , p1.y , AOEA , 1 )
             if event.key == pygame.K_m:#player 2 drop bomb
                 obstacles.initBomb(p2.x , p2.y , AOEB , 2 )
-#=======
             #if event.key == pygame.K_q:#player 1 drop bomb
 
             #if event.key == pygame.K_m:#player 2 drop bomb
