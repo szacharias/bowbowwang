@@ -1,6 +1,7 @@
 import pygame, sys, random
 #from pygame.locals import *
 import numpy as np
+import time
 import time as ti
 # 變數宣告
 ##背景顏色
@@ -8,9 +9,12 @@ BACKGROUNDCOLOR = (255, 255, 255)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 FPS = 40
-
+AOEA =3
+AOEB = 3
 VHNUMS = 10 #格數
 CELLNUMS = VHNUMS*VHNUMS #總格數
+
+finish = False;
 
 gameImage = pygame.image.load('apple.jpg')
 gameImage = pygame.transform.scale(gameImage, (800, 600))
@@ -74,10 +78,11 @@ class piece:
 
 p1=piece( 0 , 0 , 'A' , True)
 p2=piece( 720 , 540 , 'B' , True)
+
+background=pygame.Surface((800,600))
 #產生腳色
 def players_picture_set():
     #player1
-    background=pygame.Surface((800,600))
     background.fill([176,196,22])
     playerImage1 = pygame.image.load("man1.png")
     playerImage1 = pygame.transform.scale(playerImage1, (70, 50))
@@ -89,30 +94,24 @@ def players_picture_set():
     background.blit(playerImage2,(p2.x,p2.y))
     windowSurface.blit(background,(0,0))
     pygame.display.update
-"""
+
+def bombsPictureSet(locationx , locationy ):
+    print("makepicture")
+    bombImage = pygame.image.load("bomb.png")
+    bombImage = pygame.transform.scale(bombImage , ( 70 , 50 ))
+    background.blit(bombImage,(locationx,locationy))
+    windowSurface.blit(background,(0,0))
+    pygame.display.update
+
+
 class obstacles:
     passable = False
-    local
-    tionx = -1
+    locationx = -1
     locationy = -1
     AOE = -1
     owner = -1
     time = -1
     picked = False
-
-    def initBomb(self , locationx , locationy , AOE , owner , time ):
-        self.locationx = locationx
-        self.locationy = locationy
-        self.AOE = AOE
-        self.owner = owner
-        self.time = time
-        bombTimer = pygame.time.get_ticks()
-        waiting = True
-        while waiting:
-            seconds=(pygame.time.get_ticks()-start_ticks)/1000 #calculate how many seconds
-            if seconds > 5 :
-                bombAOE(self.owner , self.locationx , self.locationy , self.AOE)
-                waiting = False
 
 
     def initBlocks( self , locationx , locationy ):
@@ -124,14 +123,80 @@ class obstacles:
         self.locationx = locationx
         self.locationy = locationy
 
-    "def bombAOE(owner , locationx , locationy , AOE):"
-"""
+    def initBomb( locationxO , locationyO , AOEO , ownerO  ):
+        print("initbomb")
+        locationx = locationxO
+        locationy = locationyO
+        bombsPictureSet(locationx ,locationy )
+        AOE = AOEO
+        owner = ownerO
+        bombTimer = time.time()
+        #bombTimer = pygame.time.get_ticks()
+        waiting = True
+        while waiting:
+            curTime = time.time()
+            seconds= curTime - bombTimer
+            print(seconds) 
+            if seconds >5 :
+                duelOutcome = bombAOE(self.owner , self.locationx , self.locationy , self.AOE)
+                if duelOutcome == 1 or duelOutcome == 2 or duelOutcome == 3:
+                    finish = True
+                elif duelOutcome == 4 :
+                    finish = False
+                waiting = False
+
+
+    def bombAOE(owner, locationx , locationy ):
+        print("bombAOE")
+        whathappensnext ;
+        if owner == 1:
+            AOE = AOEA
+        if owner == 2 :
+            AOE =AOEB
+        resultA , resultB =  bombDamage(locationx , locationy , AOE)
+
+        if resultA == True:
+            print("Bwin")
+            whathappensnext = 1
+        elif resultB == True:
+            print("Awin")
+            whathappensnext = 2
+        elif resultA == True and resultB == True:
+            print("DRAW")
+            whathappensnext = 3
+        elif resultA == False and resultB == False:
+            print("safe")
+            whathappensnext = 4
+        return whathappensnext
+
+    def bombDamage(locationx , locationy , AOE):
+        print("bombAOE")
+        p1Status , p2Status = False
+        if locationx -( 80 * AOE) <= p1.x and locationx >= p1.x and locationy == p1.y: #left hit
+            p1Status = True
+        if locationx + (80 * AOE) >= p1.x and locationx <= p1.x and locationy == p1.y: #right hit
+            p1Status = True
+        if locationy - (60*AOE ) <= p1.y and locationy >= p1.y and locationx == p1.x: #top hit
+            p1Status = True
+        if locationy + (60 * AOE ) >= p1.y and locationy <= p1.y and locationx == p1.x: # bottom hit
+            p1Status = True
+
+        if locationx -( 80 * AOE) <= p2.x and locationx >= p2.x and locationy == p2.y: #left hit
+            p2Status = True
+        if locationx + (80 * AOE) >= p2.x and locationx <= p2.x and locationy == p2.y: #right hit
+            p2Status = True
+        if locationy - (60*AOE ) <= p2.y and locationy >= p2.y and locationx == p2.x :#top hit
+            p2Status = True
+        if locationy + (60 * AOE ) >= p2.y and locationy <= p2.y and locationx == p2.x: # bottom hit
+            p2Status = True
+
+        return p1Status , p2Status
 
 
 players_picture_set()
-finish = False;
 # 遊戲主程式
 while finish == False:
+    obsta = obstacles()
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_w: #player 1 up down left right
@@ -162,10 +227,17 @@ while finish == False:
             if event.key == pygame.K_l:
                 p2.x = p2.x + 80
                 print('l')
+#<<<<<<< HEAD
+            if event.key == pygame.K_q:#player 1 drop bomb
+                obstacles.initBomb(p1.x , p1.y , AOEA , 1 )
+            if event.key == pygame.K_m:#player 2 drop bomb
+                obstacles.initBomb(p2.x , p2.y , AOEB , 2 )
+#=======
             #if event.key == pygame.K_q:#player 1 drop bomb
 
             #if event.key == pygame.K_m:#player 2 drop bomb
 
+#>>>>>>> 619efc72fbaddd29881fd2499347206791e15ca8
         pygame.event.pump()
 
     initBoard()
