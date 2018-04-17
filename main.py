@@ -125,13 +125,12 @@ class obstacles:
 
     def initBomb( locationxO , locationyO , AOEO , ownerO  ):
         print("initbomb")
-        bombCount ++
+        #bombCount ++
         locationx = locationxO
         locationy = locationyO
         bombsPictureSet(locationx ,locationy )
         AOE = AOEO
         owner = ownerO
-        """
         bombTimer = time.time()
         #bombTimer = pygame.time.get_ticks()
         waiting = True
@@ -145,7 +144,7 @@ class obstacles:
                     finish = True
                 elif duelOutcome == 4 :
                     finish = False
-                waiting = False"""
+                waiting = False
 
 
     def bombAOE(owner, locationx , locationy ):
@@ -200,10 +199,11 @@ while finish == False:
     obsta = obstacles()
 
     for event in pygame.event.get():
-        if bombCount > 1
+        #if bombCount > 1:
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w: #player 1 up down left right                    p1.y=p1.y-60
+            if event.key == pygame.K_w: #player 1 up down left right
+                p1.y=p1.y-60
                 print('w')
             if event.key == pygame.K_a:
                 p1.x = p1.x -80
