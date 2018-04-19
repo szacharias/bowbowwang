@@ -1,5 +1,5 @@
 import pygame, sys, random
-#from pygame.locals import *
+from pygame.locals import *
 import numpy as np
 import time as ti
 # 變數宣告
@@ -27,7 +27,6 @@ def terminate():
 
 #初始化板子
 def initBoard():
-    pygame.init()
     mainClock = pygame.time.Clock()
 
 
@@ -128,6 +127,7 @@ class obstacles:
 """
 
 
+
 players_picture_set()
 finish = False;
 # 遊戲主程式
@@ -159,7 +159,6 @@ while finish == False:
             if event.key == pygame.K_m:#player 2 drop bomb
                 x_change = 5
         pygame.event.pump()
-    
     initBoard()
     players_picture_set()
     pygame.display.update
